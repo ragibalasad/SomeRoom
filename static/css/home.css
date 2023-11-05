@@ -1,0 +1,98 @@
+.terminal {
+  max-width: 600px; /*this is an exception only for the home.css*/
+}
+
+.tabs {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tab {
+  flex: 1;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  background-color: #2a2a2a;
+  border: 1px solid #000000;
+  border-radius: 10px 10px 0 0;
+}
+
+.tab.active {
+  background-color: #1e1e1e;
+  border-bottom: none;
+}
+
+.content {
+  display: none;
+  padding: 10px;
+  border: 1px solid #000000;
+  border-radius: 0 0 10px 10px;
+  background-color: #2a2a2a;
+}
+
+.content.active {
+  display: block;
+}
+
+.input-group {
+  position: relative;
+  padding: 10px;
+}
+
+.input-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.input-group .prompt {
+  position: absolute;
+  top: 65%;
+  transform: translateY(-50%);
+  margin-right: 5px;
+  color: #00ff00;
+}
+
+.input-group input {
+  width: calc(100% - 25px); /* Adjusted width to accommodate prompt */
+  padding: 5px;
+  font-size: 16px;
+  border: none;
+  background-color: transparent;
+  color: #ffffff;
+  border-bottom: 1px solid #000000;
+  outline: none;
+  padding-left: 20px; /* Added padding to accommodate the prompt */
+}
+
+.input-group input:focus {
+  border-bottom: 1px solid #ffffff;
+}
+
+.button {
+  margin: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  /* background-color: #3498db;
+            color: #ffffff; */
+  cursor: pointer;
+}
+
+.create {
+  background-color: #27ae60;
+  color: #ffffff;
+}
+.create:hover {
+  background-color: #2ecc71;
+}
+
+.join {
+  background-color: #3498db;
+  color: #ffffff;
+}
+.join:hover {
+  background-color: #2980b9;
+}

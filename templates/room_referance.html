@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Terminal-like Webpage</title>
+    <style>
+      body {
+        font-family: Monaco, monospace;
+        margin: 0;
+        background-color: #1e1e1e;
+        color: #ffffff;
+      }
+
+      .terminal {
+        width: 80%;
+        max-width: 800px;
+        margin: 50px auto;
+        background-color: #2a2a2a;
+        border: 1px solid #000000;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+
+      .title-bar {
+        background-color: #1e1e1e;
+        color: #ffffff;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center; /* Align items vertically */
+        border-bottom: 1px solid #000000;
+        cursor: move;
+        position: relative;
+      }
+
+      .title-bar-text {
+        font-weight: bold;
+        margin-left: 30px;
+      }
+
+      .close-button {
+        cursor: pointer;
+        width: 16px;
+        height: 16px;
+        background-color: #ff5f57;
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        left: 10px;
+        margin-left: 10px; /* Added margin-left */
+        transform: translate(-50%, -50%);
+      }
+
+      .close-button::before,
+      .close-button::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        background-color: #ffffff;
+        transform: translate(-50%, -50%);
+        height: 60%;
+        width: 2px;
+      }
+
+      .close-button::before {
+        transform: translate(-50%, -50%) rotate(45deg);
+      }
+
+      .close-button::after {
+        transform: translate(-50%, -50%) rotate(-45deg);
+      }
+
+      .output {
+        padding: 10px;
+        min-height: 200px;
+        max-height: 300px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        overflow-wrap: break-word;
+      }
+
+      .input {
+        background-color: #2a2a2a;
+        display: flex;
+        padding: 10px;
+        border-top: 1px solid #000000;
+      }
+
+      .prompt {
+        margin-right: 5px;
+        color: #00ff00;
+      }
+
+      .input input {
+        border: none;
+        background-color: transparent;
+        color: #ffffff;
+        font-family: Monaco, monospace;
+        font-size: 16px;
+        width: 100%;
+        outline: none;
+      }
+
+      .input input:focus {
+        outline: none;
+      }
+      @media only screen and (max-width: 600px) {
+        body {
+          background-color: #2a2a2a;
+        }
+        .terminal {
+          position: absolute;
+          overflow-y: hidden;
+          width: 100%;
+          max-width: 100%;
+          max-height: 100%;
+          height: 90%;
+          border-radius: 0;
+          border: none;
+          box-shadow: none;
+          margin: 40px 0;
+        }
+
+        .title-bar {
+          position: fixed;
+          width: 100%;
+          top: 0;
+        }
+
+        .title-bar-text {
+          margin-left: 30px;
+        }
+
+        .output {
+          max-height: 85%;
+          min-height: 0px;
+          margin: 0;
+        }
+
+        .input {
+          position: fixed;
+          width: 100%;
+          bottom: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="terminal">
+      <div class="title-bar">
+        <div class="close-button"></div>
+        <div class="title-bar-text">Terminal Window</div>
+      </div>
+      <div class="output"></div>
+      <div class="input">
+        <span class="prompt">> </span>
+        <input type="text" id="message" autocomplete="off" />
+      </div>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const inputField = document.getElementById("message");
+        const outputDiv = document.querySelector(".output");
+
+        function scrollToBottom() {
+          outputDiv.scrollTop = outputDiv.scrollHeight;
+        }
+
+        inputField.addEventListener("keydown", function (event) {
+          if (event.key === "Enter" && inputField.value != "") {
+            const message = inputField.value;
+            const promptDiv = document.createElement("div");
+            promptDiv.classList.add("prompt");
+            promptDiv.textContent = "> " + message;
+            outputDiv.appendChild(promptDiv);
+            inputField.value = "";
+
+            // Scroll to bottom after adding new content
+            scrollToBottom();
+          }
+        });
+
+        // Close button functionality
+        const closeButton = document.querySelector(".close-button");
+        closeButton.addEventListener("click", function () {
+          // Add code here to close the window (if applicable)
+          alert("Close button clicked!");
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,48 @@
+{% extends 'base.html' %} 
+{% block title %} <title>Room</title> {%endblock %} 
+{% block css %}
+  <link 
+    rel="stylesheet" 
+    href="{{url_for('static', filename='css/room.css')}}" 
+  />
+{% endblock %} 
+{% block content %}
+
+      <div class="output"></div>
+      <div class="input">
+        <span class="prompt">> </span>
+        <input type="text" id="message" autocomplete="off" />
+      </div>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const inputField = document.getElementById("message");
+        const outputDiv = document.querySelector(".output");
+
+        function scrollToBottom() {
+          outputDiv.scrollTop = outputDiv.scrollHeight;
+        }
+
+        inputField.addEventListener("keydown", function (event) {
+          if (event.key === "Enter" && inputField.value != "") {
+            const message = inputField.value;
+            const promptDiv = document.createElement("div");
+            promptDiv.classList.add("prompt");
+            promptDiv.textContent = "> " + message;
+            outputDiv.appendChild(promptDiv);
+            inputField.value = "";
+
+            // Scroll to bottom after adding new content
+            scrollToBottom();
+          }
+        });
+
+        // Close button functionality
+        const closeButton = document.querySelector(".close-button");
+        closeButton.addEventListener("click", function () {
+          // Add code here to close the window (if applicable)
+          alert("Close button clicked!");
+        });
+      });
+    </script>
+{% endblock %}
