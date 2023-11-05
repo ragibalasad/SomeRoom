@@ -67,9 +67,6 @@ body {
 }
 
 @media only screen and (max-width: 600px) {
-  body {
-    background-color: #2a2a2a;
-  }
   .terminal {
     overflow-y: hidden;
     width: 100%;
