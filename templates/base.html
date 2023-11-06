@@ -16,10 +16,15 @@
     {% block title %} {% endblock %} {% block css %} {% endblock %}
   </head>
   <body>
+    {% if error %}
+    <script>
+      alert("{{error}}");
+    </script>
+    {% endif %}
     <div class="terminal">
       <div class="title-bar">
         <div class="close-button"></div>
-        <div class="title-bar-text">Terminal Window</div>
+        <div class="title-bar-text">SomeRoom</div>
       </div>
       {% block content %} {% endblock %}
     </div>

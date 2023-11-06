@@ -14,29 +14,38 @@
       </div>
 
       <div class="content active" id="join">
-        <form onsubmit="return false;">
+        <form method="post">
           <div class="input-group">
             <span class="prompt">$ </span>
-            <label for="join-nickname">Nickname</label>
-            <input type="text" id="join-nickname" autocomplete="off" required />
+            <label for="join-nickname">Pick a nickname</label>
+            <input 
+              type="text" 
+              id="join-nickname" 
+              name="nickname" 
+              value="{{nickname}}" 
+              autocomplete="off" 
+              required 
+            />
           </div>
           <div class="input-group">
             <span class="prompt">$ </span>
             <label for="room-code">Room Code</label>
-            <input type="text" id="room-code" autocomplete="off" required />
+            <input type="text" id="room-code" name="code" value="{{code}}" autocomplete="off" required />
           </div>
-          <button class="button join" onclick="createRoom()">Join Room</button>
+          <button class="button join" type="submit" name="join" onclick="createRoom()">Join Room</button>
         </form>
       </div>
 
       <div class="content" id="create">
-        <form onsubmit="return false;">
+        <form method="post">
           <div class="input-group">
             <span class="prompt">$ </span>
-            <label for="create-nickname">Nickname</label>
+            <label for="create-nickname">Your Nickname</label>
             <input
               type="text"
               id="create-nickname"
+              name="nickname"
+              value="{{nickname}}"
               autocomplete="off"
               required
             />
@@ -44,9 +53,9 @@
           <div class="input-group">
             <span class="prompt">$ </span>
             <label for="room-name">Room Name</label>
-            <input type="text" id="room-name" autocomplete="off" required />
+            <input type="text" id="room-name" name="roomname" value="{{roomname}}" autocomplete="off" required />
           </div>
-          <button class="button create" onclick="joinRoom()">
+          <button class="button create" type="submit" name="create" onclick="joinRoom()">
             Create Room
           </button>
         </form>
