@@ -1,5 +1,8 @@
-{% extends 'base.html' %} {% block title %} <title>Room</title> {%endblock %} {%
-block css %}
+{% extends 'base.html' %} {% block title %}
+<title>
+  {% if roomname %} {{ roomname + " by " + host}} {% else %} Room {% endif %}
+</title>
+{% endblock %} {% block css %}
 <link rel="stylesheet" href="{{url_for('static', filename='css/room.css')}}" />
 {% endblock %} {% block content %}
 
@@ -35,7 +38,8 @@ block css %}
     const closeButton = document.querySelector(".close-button");
     closeButton.addEventListener("click", function () {
       // Add code here to close the window (if applicable)
-      alert("Close button clicked!");
+      alert("You're about to leave!");
+      window.location.href = "/";
     });
   });
 </script>

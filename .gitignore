@@ -1,1 +1,10 @@
+# environment configuration file
 .env
+
+# This file is for testing different functions 
+#before implementing them in main.py
+.test.py
+
+# actual referance files for home.html and room.html 
+home_referance.html
+room_referance.html

@@ -33,6 +33,11 @@ body {
   margin-left: 30px;
 }
 
+.room-code {
+  position: absolute;
+  right: 40px;
+}
+
 .close-button {
   cursor: pointer;
   width: 16px;

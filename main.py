@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, session, redirect, url_for
 from flask_socketio import join_room, leave_room, send, SocketIO
-from string import ascii_uppercase
+from string import ascii_uppercase, digits
 import random
 from dotenv import load_dotenv
 import os
@@ -19,9 +19,7 @@ rooms = {}
 
 def generate_unique_code(length):
     while True:
-        code = ""
-        for _ in range(length):
-            code += random.choice(ascii_uppercase)
+        code = "".join(random.choices(ascii_uppercase + digits, k=length))
 
         if code not in rooms:
             break
@@ -57,12 +55,31 @@ def home():
             )
 
         room = code
+        host = nickname
         if create != False:
             room = generate_unique_code(4)
-            rooms[room] = {"members": 0, "messages": []}
+            rooms[room] = {
+                "code": room,
+                "roomname": roomname,
+                "host": host,
+                "members": 0,
+                "nicknames": [],
+                "messages": [],
+            }
+
+        # Check if requested room exists
         elif code not in rooms:
             return render_template(
                 "home.html", error="Room does not exist.", nickname=nickname, code=code
+            )
+
+        # Check if user already exist in requested room
+        elif nickname in rooms[room]["nicknames"]:
+            return render_template(
+                "home.html",
+                error=f"User already exists in room {code}.",
+                nickname=nickname,
+                code=code,
             )
 
         session["room"] = room
@@ -80,7 +97,11 @@ def room():
     if room is None or nickname is None or room not in rooms:
         return redirect(url_for("home"))
 
-    return render_template("room.html")
+    code = rooms[room]["code"]
+    roomname = rooms[room]["roomname"]
+    host = rooms[room]["host"]
+
+    return render_template("room.html", code=code, roomname=roomname, host=host)
 
 
 @socketio.on("connect")
@@ -98,6 +119,7 @@ def connect(auth):
     join_room(room)
     send({"nickname": nickname, "message": "has entered the room"}, to=room)
     rooms[room]["members"] += 1
+    rooms[room]["nicknames"].append(nickname)
     print(f"{nickname} joined room {room}")
 
 

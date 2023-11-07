@@ -24,7 +24,11 @@
     <div class="terminal">
       <div class="title-bar">
         <div class="close-button"></div>
-        <div class="title-bar-text">SomeRoom</div>
+        <div class="title-bar-text">
+          {% if roomname %} {{roomname}}
+          <span class="room-code"> {{code}} </span> {% else %} SomeRoom {% endif
+          %}
+        </div>
       </div>
       {% block content %} {% endblock %}
     </div>
