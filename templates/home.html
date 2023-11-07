@@ -1,97 +1,117 @@
-{% extends 'base.html' %}
-{% block title %} <title>Host or  join Room</title> {% endblock %}
-{% block css %} 
-    <link
-      rel="stylesheet"
-      href="{{url_for('static', filename='css/home.css')}}"
-    />
-{% endblock %}
-{% block content %}
+{% extends 'base.html' %} {% block title %} <title>Host or join Room</title> {%
+endblock %} {% block css %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/home.css')}}" />
+{% endblock %} {% block content %}
 
-      <div class="tabs">
-        <div class="tab" onclick="changeTab('join')">Join Room</div>
-        <div class="tab active" onclick="changeTab('create')">Create Room</div>
-      </div>
+<div class="tabs">
+  <div class="tab" onclick="changeTab('join')">Join Room</div>
+  <div class="tab active" onclick="changeTab('create')">Create Room</div>
+</div>
 
-      <div class="content active" id="join">
-        <form method="post">
-          <div class="input-group">
-            <span class="prompt">$ </span>
-            <label for="join-nickname">Pick a nickname</label>
-            <input 
-              type="text" 
-              id="join-nickname" 
-              name="nickname" 
-              value="{{nickname}}" 
-              autocomplete="off" 
-              required 
-            />
-          </div>
-          <div class="input-group">
-            <span class="prompt">$ </span>
-            <label for="room-code">Room Code</label>
-            <input type="text" id="room-code" name="code" value="{{code}}" autocomplete="off" required />
-          </div>
-          <button class="button join" type="submit" name="join" onclick="createRoom()">Join Room</button>
-        </form>
-      </div>
-
-      <div class="content" id="create">
-        <form method="post">
-          <div class="input-group">
-            <span class="prompt">$ </span>
-            <label for="create-nickname">Your Nickname</label>
-            <input
-              type="text"
-              id="create-nickname"
-              name="nickname"
-              value="{{nickname}}"
-              autocomplete="off"
-              required
-            />
-          </div>
-          <div class="input-group">
-            <span class="prompt">$ </span>
-            <label for="room-name">Room Name</label>
-            <input type="text" id="room-name" name="roomname" value="{{roomname}}" autocomplete="off" required />
-          </div>
-          <button class="button create" type="submit" name="create" onclick="joinRoom()">
-            Create Room
-          </button>
-        </form>
-      </div>
+<div class="content active" id="join">
+  <form method="post">
+    <div class="input-group">
+      <span class="prompt">$ </span>
+      <label for="join-nickname">Pick a nickname</label>
+      <input
+        type="text"
+        id="join-nickname"
+        name="nickname"
+        value="{{nickname}}"
+        autocomplete="off"
+        required
+      />
     </div>
+    <div class="input-group">
+      <span class="prompt">$ </span>
+      <label for="room-code">Room Code</label>
+      <input
+        type="text"
+        id="room-code"
+        name="code"
+        value="{{code}}"
+        autocomplete="off"
+        required
+      />
+    </div>
+    <button
+      class="button join"
+      type="submit"
+      name="join"
+      onclick="createRoom()"
+    >
+      Join Room
+    </button>
+  </form>
+</div>
 
-    <script>
-      function changeTab(tab) {
-        const createTab = document.getElementById("create");
-        const joinTab = document.getElementById("join");
+<div class="content" id="create">
+  <form method="post">
+    <div class="input-group">
+      <span class="prompt">$ </span>
+      <label for="create-nickname">Your Nickname</label>
+      <input
+        type="text"
+        id="create-nickname"
+        name="nickname"
+        value="{{nickname}}"
+        autocomplete="off"
+        required
+      />
+    </div>
+    <div class="input-group">
+      <span class="prompt">$ </span>
+      <label for="room-name">Room Name</label>
+      <input
+        type="text"
+        id="room-name"
+        name="roomname"
+        value="{{roomname}}"
+        autocomplete="off"
+        required
+      />
+    </div>
+    <button
+      class="button create"
+      type="submit"
+      name="create"
+      onclick="joinRoom()"
+    >
+      Create Room
+    </button>
+  </form>
+</div>
 
-        if (tab === "create") {
-          createTab.classList.add("active");
-          joinTab.classList.remove("active");
-          document.querySelector(".tab.active").classList.remove("active");
-          document.querySelector(".tab:nth-child(1)").classList.add("active");
-        } else {
-          createTab.classList.remove("active");
-          joinTab.classList.add("active");
-          document.querySelector(".tab.active").classList.remove("active");
-          document.querySelector(".tab:nth-child(2)").classList.add("active");
-        }
-      }
+<script>
+  function changeTab(tab) {
+    const createTab = document.getElementById("create");
+    const joinTab = document.getElementById("join");
 
-      function createRoom() {
-        const nickname = document.getElementById("create-nickname").value;
-        const roomName = document.getElementById("room-name").value;
-        // Add your code to handle room creation here
-        console.log("Creating room...");
-      }
+    if (tab === "create") {
+      createTab.classList.add("active");
+      joinTab.classList.remove("active");
+      document.querySelector(".tab.active").classList.remove("active");
+      document.querySelector(".tab:nth-child(1)").classList.add("active");
+    } else {
+      createTab.classList.remove("active");
+      joinTab.classList.add("active");
+      document.querySelector(".tab.active").classList.remove("active");
+      document.querySelector(".tab:nth-child(2)").classList.add("active");
+    }
+  }
 
-      function joinRoom() {
-        const nickname = document.getElementById("join-nickname").value;
-        const roomCode = document.getElementById("room-code").value;
-        // Add your code to handle room joining here
-        console.log("Joining room...");
-      }
-    </script>
+  function createRoom() {
+    const nickname = document.getElementById("create-nickname").value;
+    const roomName = document.getElementById("room-name").value;
+    // Add your code to handle room creation here
+    console.log("Creating room...");
+  }
+
+  function joinRoom() {
+    const nickname = document.getElementById("join-nickname").value;
+    const roomCode = document.getElementById("room-code").value;
+    // Add your code to handle room joining here
+    console.log("Joining room...");
+  }
+</script>
 {% endblock %}

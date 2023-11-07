@@ -1,50 +1,42 @@
-{% extends 'base.html' %} 
-{% block title %} <title>Room</title> {%endblock %} 
-{% block css %}
-  <link 
-    rel="stylesheet" 
-    href="{{url_for('static', filename='css/room.css')}}" 
-  />
-{% endblock %} 
-{% block content %}
+{% extends 'base.html' %} {% block title %} <title>Room</title> {%endblock %} {%
+block css %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/room.css')}}" />
+{% endblock %} {% block content %}
 
-      <div class="output"></div>
-      <div class="input">
-        <span class="prompt">> </span>
-        <input type="text" id="message" autocomplete="off" />
-      </div>
-    </div>
-    <script type="text/javascript">
-      var socketio = io();
+<div class="output"></div>
+<div class="input">
+  <span class="prompt">> </span>
+  <input type="text" id="message" autocomplete="off" />
+</div>
 
-      const sendMessage = () => {
-        
+<script type="text/javascript">
+  var socketio = io();
+
+  const sendMessage = () => {};
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const inputField = document.getElementById("message");
+    const outputDiv = document.querySelector(".output");
+
+    function scrollToBottom() {
+      outputDiv.scrollTop = outputDiv.scrollHeight;
+    }
+
+    inputField.addEventListener("keydown", function (event) {
+      if (event.key === "Enter" && inputField.value != "") {
+        inputField.value = "";
+
+        // Scroll to bottom after adding new content
+        scrollToBottom();
       }
+    });
 
-
-      document.addEventListener("DOMContentLoaded", function () {
-        const inputField = document.getElementById("message");
-        const outputDiv = document.querySelector(".output");
-
-        function scrollToBottom() {
-          outputDiv.scrollTop = outputDiv.scrollHeight;
-        }
-
-        inputField.addEventListener("keydown", function (event) {
-          if (event.key === "Enter" && inputField.value != "") {
-            inputField.value = "";
-
-            // Scroll to bottom after adding new content
-            scrollToBottom();
-          }
-        });
-
-        // Close button functionality
-        const closeButton = document.querySelector(".close-button");
-        closeButton.addEventListener("click", function () {
-          // Add code here to close the window (if applicable)
-          alert("Close button clicked!");
-        });
-      });
-    </script>
+    // Close button functionality
+    const closeButton = document.querySelector(".close-button");
+    closeButton.addEventListener("click", function () {
+      // Add code here to close the window (if applicable)
+      alert("Close button clicked!");
+    });
+  });
+</script>
 {% endblock %}

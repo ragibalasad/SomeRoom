@@ -82,6 +82,12 @@
         overflow-wrap: break-word;
       }
 
+      .message .date {
+        font-size: 12px;
+        margin-left: 10px;
+        color: whitesmoke;
+      }
+
       .input {
         background-color: #2a2a2a;
         display: flex;
@@ -173,9 +179,13 @@
           if (event.key === "Enter" && inputField.value != "") {
             const message = inputField.value;
             const promptDiv = document.createElement("div");
-            promptDiv.classList.add("prompt");
+            promptDiv.classList.add("message");
             promptDiv.textContent = "> " + message;
             outputDiv.appendChild(promptDiv);
+            const dateSpan = document.createElement("span");
+            dateSpan.classList.add("date");
+            dateSpan.textContent = "10/11/2023 12:28";
+            promptDiv.appendChild(dateSpan);
             inputField.value = "";
 
             // Scroll to bottom after adding new content
