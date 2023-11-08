@@ -82,7 +82,7 @@ endblock %} {% block css %}
   </form>
 </div>
 
-<script>
+<script type="text/javascript">
   function changeTab(tab) {
     const createTab = document.getElementById("create");
     const joinTab = document.getElementById("join");
@@ -98,20 +98,6 @@ endblock %} {% block css %}
       document.querySelector(".tab.active").classList.remove("active");
       document.querySelector(".tab:nth-child(2)").classList.add("active");
     }
-  }
-
-  function createRoom() {
-    const nickname = document.getElementById("create-nickname").value;
-    const roomName = document.getElementById("room-name").value;
-    // Add your code to handle room creation here
-    console.log("Creating room...");
-  }
-
-  function joinRoom() {
-    const nickname = document.getElementById("join-nickname").value;
-    const roomCode = document.getElementById("room-code").value;
-    // Add your code to handle room joining here
-    console.log("Joining room...");
   }
 </script>
 {% endblock %}

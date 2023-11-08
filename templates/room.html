@@ -37,9 +37,9 @@
     // Close button functionality
     const closeButton = document.querySelector(".close-button");
     closeButton.addEventListener("click", function () {
-      // Add code here to close the window (if applicable)
-      alert("You're about to leave!");
-      window.location.href = "/";
+      if (confirm("You're about to leave!")) {
+        window.location.href = "/";
+      }
     });
   });
 </script>
