@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="{{url_for('static', filename='css/room.css')}}" />
 {% endblock %} {% block content %}
 
-<div class="output"></div>
+<div class="output" id="messages"></div>
 <div class="input">
   <span class="prompt">> </span>
   <input type="text" id="message" autocomplete="off" />
@@ -15,7 +15,33 @@
 <script type="text/javascript">
   var socketio = io();
 
-  const sendMessage = () => {};
+  // listen for messages and printout
+  const messages = document.getElementById("messages");
+  const createMessage = (name, msg) => {
+    const content = `
+    <div class="message">
+      <span>
+        <strong>${name}</strong>: ${msg}
+      </span>
+      <span class="date">
+        ${new Date().toLocaleString()}
+      </span>
+    </div>
+    `;
+    messages.innerHTML += content;
+  };
+
+  socketio.on("message", (data) => {
+    createMessage(data.nickname, data.message);
+  });
+
+  // send messages
+  const sendMessage = () => {
+    const message = document.getElementById("message");
+    if (message.value == "") return;
+    socketio.emit("message", { data: message.value });
+    message.value = "";
+  };
 
   document.addEventListener("DOMContentLoaded", function () {
     const inputField = document.getElementById("message");
@@ -27,6 +53,7 @@
 
     inputField.addEventListener("keydown", function (event) {
       if (event.key === "Enter" && inputField.value != "") {
+        sendMessage();
         inputField.value = "";
 
         // Scroll to bottom after adding new content

@@ -7,6 +7,16 @@
   overflow-wrap: break-word;
 }
 
+.message .i {
+  font-style: italic;
+}
+
+.message .date {
+  font-size: 12px;
+  margin-left: 10px;
+  color: whitesmoke;
+}
+
 .input {
   background-color: #2a2a2a;
   display: flex;

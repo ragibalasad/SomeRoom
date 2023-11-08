@@ -97,11 +97,25 @@ def room():
     if room is None or nickname is None or room not in rooms:
         return redirect(url_for("home"))
 
-    code = rooms[room]["code"]
     roomname = rooms[room]["roomname"]
     host = rooms[room]["host"]
 
-    return render_template("room.html", code=code, roomname=roomname, host=host)
+    return render_template("room.html", code=room, roomname=roomname, host=host)
+
+
+@socketio.on("message")
+def message(data):
+    room = session.get("room")
+    if room not in rooms:
+        return
+
+    content = {
+        "nickname": session.get("nickname"),
+        "message": data["data"],
+    }
+    send(content, to=room)
+    rooms[room]["messages"].append(content)
+    print(f"{session.get('nickname')} said: {data['data']}")
 
 
 @socketio.on("connect")
@@ -117,7 +131,14 @@ def connect(auth):
         return
 
     join_room(room)
-    send({"nickname": nickname, "message": "has entered the room"}, to=room)
+    send(
+        {
+            "decoration": "join",
+            "nickname": nickname,
+            "message": "<i>has entered the room</i>",
+        },
+        to=room,
+    )
     rooms[room]["members"] += 1
     rooms[room]["nicknames"].append(nickname)
     print(f"{nickname} joined room {room}")
