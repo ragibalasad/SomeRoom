@@ -15,24 +15,45 @@
 <script type="text/javascript">
   var socketio = io();
 
-  // listen for messages and printout
+  const outputDiv = document.querySelector(".output");
   const messages = document.getElementById("messages");
-  const createMessage = (name, msg) => {
-    const content = `
-    <div class="message">
-      <span>
-        <strong>${name}</strong>: ${msg}
-      </span>
-      <span class="date">
-        ${new Date().toLocaleString()}
-      </span>
-    </div>
-    `;
-    messages.innerHTML += content;
+
+  function scrollToBottom() {
+    outputDiv.scrollTop = outputDiv.scrollHeight;
+  }
+
+  // listen for messages and printout
+  const createMessage = (name, msg, decoration) => {
+    if (decoration === "join") {
+      const content = `
+        <div class="message">
+        <span class="green"> ${name} ${msg}</span>
+        </div>
+      `;
+      messages.innerHTML += content;
+    } else if (decoration === "leave") {
+      const content = `
+        <div class="message">
+        <span class="orange"> ${name} ${msg}</span>
+        </div>
+      `;
+      messages.innerHTML += content;
+    } else {
+      const promptDiv = document.createElement("div");
+      promptDiv.classList.add("message");
+      promptDiv.textContent = name + " : " + msg;
+      outputDiv.appendChild(promptDiv);
+      const dateSpan = document.createElement("span");
+      dateSpan.classList.add("date");
+      dateSpan.textContent = new Date().toLocaleString();
+      promptDiv.appendChild(dateSpan);
+    }
+    // Scroll to bottom after adding new content
+    scrollToBottom();
   };
 
   socketio.on("message", (data) => {
-    createMessage(data.nickname, data.message);
+    createMessage(data.nickname, data.message, data.decoration);
   });
 
   // send messages
@@ -45,11 +66,6 @@
 
   document.addEventListener("DOMContentLoaded", function () {
     const inputField = document.getElementById("message");
-    const outputDiv = document.querySelector(".output");
-
-    function scrollToBottom() {
-      outputDiv.scrollTop = outputDiv.scrollHeight;
-    }
 
     inputField.addEventListener("keydown", function (event) {
       if (event.key === "Enter" && inputField.value != "") {

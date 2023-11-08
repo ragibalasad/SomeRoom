@@ -7,8 +7,12 @@
   overflow-wrap: break-word;
 }
 
-.message .i {
-  font-style: italic;
+.message .green {
+  color: lightgreen;
+}
+
+.message .orange {
+  color: orange;
 }
 
 .message .date {

@@ -135,7 +135,7 @@ def connect(auth):
         {
             "decoration": "join",
             "nickname": nickname,
-            "message": "<i>has entered the room</i>",
+            "message": "has entered the room",
         },
         to=room,
     )
@@ -155,7 +155,14 @@ def disconnect():
         if rooms[room]["members"] <= 0:
             del rooms[room]
 
-    send({"nickname": nickname, "message": "has left the room"}, to=room)
+    send(
+        {
+            "decoration": "leave",
+            "nickname": nickname,
+            "message": "has left the room",
+        },
+        to=room,
+    )
     print(f"{nickname} left room {room}")
 
 
