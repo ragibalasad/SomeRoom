@@ -7,6 +7,10 @@
   overflow-wrap: break-word;
 }
 
+.message {
+  margin-bottom: 10px;
+}
+
 .message .green {
   color: lightgreen;
 }

@@ -150,6 +150,8 @@ def disconnect():
     nickname = session.get("nickname")
     leave_room(room)
 
+    rooms[room]["nicknames"].remove(nickname)
+
     if room in rooms:
         rooms[room]["members"] -= 1
         if rooms[room]["members"] <= 0:

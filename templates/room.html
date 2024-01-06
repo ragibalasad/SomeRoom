@@ -9,7 +9,7 @@
 <div class="output" id="messages"></div>
 <div class="input">
   <span class="prompt">> </span>
-  <input type="text" id="message" autocomplete="off" />
+  <input type="text" id="message" placeholder="Write Message..." autocomplete="off" />
 </div>
 
 <script type="text/javascript">
@@ -21,6 +21,22 @@
   function scrollToBottom() {
     outputDiv.scrollTop = outputDiv.scrollHeight;
   }
+function getCurrentTime() {
+const now = new Date();
+
+// Get hours and minutes
+let hours = now.getHours();
+let minutes = now.getMinutes();
+
+// Add leading zeros if needed
+hours = hours < 10 ? '0' + hours : hours;
+minutes = minutes < 10 ? '0' + minutes : minutes;
+
+// Format the time as "HH:mm"
+const formattedTime = hours + ':' + minutes;
+
+return formattedTime;
+}
 
   // listen for messages and printout
   const createMessage = (name, msg, decoration) => {
@@ -45,7 +61,7 @@
       outputDiv.appendChild(promptDiv);
       const dateSpan = document.createElement("span");
       dateSpan.classList.add("date");
-      dateSpan.textContent = new Date().toLocaleString();
+      dateSpan.textContent = getCurrentTime();
       promptDiv.appendChild(dateSpan);
     }
     // Scroll to bottom after adding new content
