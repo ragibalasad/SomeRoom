@@ -5,7 +5,7 @@ import random
 from dotenv import load_dotenv
 import os
 
-load_dotenv(override=True)  # A secure way to handle sensitive info.
+load_dotenv(override=True)
 SECRET_KEY = os.getenv("FLASK_SECRET_KEY")
 
 
