@@ -26,7 +26,6 @@
 }
 
 .input {
-  background-color: #2a2a2a;
   display: flex;
   padding: 10px;
   border-top: 1px solid #000000;
@@ -39,15 +38,11 @@
 
 .input input {
   border: none;
-  background-color: transparent;
+  background-color: #2a2a2a;
   color: #ffffff;
   font-family: Monaco, monospace;
   font-size: 16px;
   width: 100%;
-  outline: none;
-}
-
-.input input:focus {
   outline: none;
 }
 
@@ -58,8 +53,6 @@
 
   .output {
     max-height: 85%;
-    min-height: 0px;
-    margin: 0;
   }
 
   .input {
